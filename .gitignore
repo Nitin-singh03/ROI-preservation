@@ -38,6 +38,7 @@ yarn-error.log*
 .env.production.local
 
 # Server upload directories & dynamic runtime data
+!server/uploads/.gitkeep
 server/uploads/base/*
 !server/uploads/base/.gitkeep
 server/uploads/rois/*

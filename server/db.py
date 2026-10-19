@@ -11,7 +11,10 @@ DEFAULT_DB = {
     "users": [],
     "images": [],
     "rois": [],
-    "access_requests": []
+    "access_requests": [],
+    "videos": [],
+    "video_persons": [],
+    "video_access_requests": [],
 }
 
 

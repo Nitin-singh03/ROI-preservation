@@ -9,6 +9,12 @@
 
 # Output artifacts
 roi_metadata.json
+roi_metadata.jsonl
+roi_keys.json
+
+# Private keys
+*.pem
+*.key
 
 # Python
 __pycache__/

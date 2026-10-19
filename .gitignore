@@ -43,6 +43,23 @@ server/uploads/base/*
 !server/uploads/base/.gitkeep
 server/uploads/rois/*
 !server/uploads/rois/.gitkeep
+server/uploads/videos/*
+!server/uploads/videos/.gitkeep
+
+# Model weights & compiled libraries
+*.pt
+*.onnx
+*.dll
+
+# Secrets & Private Keys
+*.pem
+*.key
+
+# Backups & Large generated files
+*.bak
+*.jsonl
+roi 2/roi_keys.json
+roi 2/*.mp4
 
 # Archives & Large Zips
 *.zip

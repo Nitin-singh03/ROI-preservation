@@ -12,26 +12,12 @@ ROIS_DIR = os.path.join(UPLOAD_BASE, "rois")
 
 
 def detect_rois(image_bytes: bytes) -> tuple[np.ndarray, list[dict]]:
-    from ultralytics import YOLO
-
-    model_path = os.path.join(os.path.dirname(__file__), "yolov8n-face.pt")
-    model = YOLO(model_path)
+    from detection_utils import detect_image_rois
 
     nparr = np.frombuffer(image_bytes, np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
-    h_img, w_img = img.shape[:2]
-    results = model(img, conf=0.25, verbose=False)[0]
-
-    rois = []
-    for box in results.boxes:
-        x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
-        x = max(0, min(x1, w_img - 1))
-        y = max(0, min(y1, h_img - 1))
-        w = max(1, min(x2 - x1, w_img - x))
-        h = max(1, min(y2 - y1, h_img - y))
-        rois.append({"x": x, "y": y, "w": w, "h": h})
-
+    rois = detect_image_rois(img)
     return img, rois
 
 

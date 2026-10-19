@@ -20,7 +20,7 @@ async function storeKey(name, key) {
   });
 }
 
-async function loadKey(name) {
+export async function loadKey(name) {
   const db = await openDB();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE, "readonly");

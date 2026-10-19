@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { generateAndStoreKeyPair, downloadPrivateKeyFile, getPrivateKeyPem } from "../utils/cryptoUtils";
+import { generateAndStoreMlKemKeyPair, downloadMlKemPrivateKey } from "../utils/mlkemUtils";
 import { api } from "../utils/api";
 
 export default function Auth() {
@@ -26,8 +27,15 @@ export default function Auth() {
     setLoading(true);
     try {
       if (mode === "signup") {
-        const publicKey = await generateAndStoreKeyPair(form.username);
-        const res = await api.signup({ username: form.username, role: form.role, rsa_public_key: publicKey });
+        // Generate RSA-2048 keypair (for images) and ML-KEM-768 keypair (for videos)
+        const rsaPublicKey = await generateAndStoreKeyPair(form.username);
+        const mlkemPublicKey = await generateAndStoreMlKemKeyPair(form.username);
+        const res = await api.signup({
+          username: form.username,
+          role: form.role,
+          rsa_public_key: rsaPublicKey,
+          mlkem_public_key: mlkemPublicKey,
+        });
         if (res.detail) { setError(res.detail); return; }
         const userObj = { ...form, user_id: res.user_id };
         setSignupUser(userObj);
@@ -151,7 +159,8 @@ export default function Auth() {
                 🎉 Account Created Successfully!
               </div>
               <div style={{ fontSize: 13, color: "#047857" }}>
-                Welcome <strong>{signupUser.username}</strong> ({signupUser.role}). Your client-side RSA keypair has been generated.
+                Welcome <strong>{signupUser.username}</strong> ({signupUser.role}).<br/>
+                RSA-2048 key (images) + ML-KEM-768 key (videos) generated.
               </div>
             </div>
 
@@ -163,12 +172,19 @@ export default function Auth() {
               {pemKey}
             </div>
 
-            <div style={{ display: "flex", gap: 10 }}>
+            <div style={{ display: "flex", gap: 10, flexDirection: "column" }}>
               <button
                 className="download-btn"
                 onClick={() => downloadPrivateKeyFile(signupUser.username)}
               >
-                📥 Download Private Key (.pem)
+                📥 Download RSA Key (.pem) — for images
+              </button>
+              <button
+                className="download-btn"
+                onClick={() => downloadMlKemPrivateKey(signupUser.username)}
+                style={{ background: "#6366f1" }}
+              >
+                🔮 Download ML-KEM Key (.bin) — for videos
               </button>
             </div>
 
@@ -262,11 +278,12 @@ export default function Auth() {
                 borderRadius: 10,
               }}>
                 <div style={{ fontSize: 12, color: "#4f46e5", fontWeight: 700, marginBottom: 4 }}>
-                  🔑 RSA Key Generation
+                  🔑 Dual Key Generation
                 </div>
                 <div style={{ fontSize: 12, color: "#6366f1", lineHeight: 1.6 }}>
-                  An RSA-2048 key pair will be generated in your browser.
-                  You will have the option to <strong>download your private key</strong> right after signup.
+                  An <strong>RSA-2048</strong> key pair (for images) and an <strong>ML-KEM-768</strong>
+                  key pair (for videos) will be generated in your browser.
+                  You can download both after signup.
                 </div>
               </div>
             )}

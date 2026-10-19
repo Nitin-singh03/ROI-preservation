@@ -1,0 +1,158 @@
+{
+  "video1": {
+    "info": {
+      "path": "videos\\video1.mp4",
+      "ground_truth_rois": 4,
+      "description": "4 Persons (4K 3840x2160, Multi-angle walking & conversation)"
+    },
+    "results": [
+      {
+        "model_name": "Haar Cascade (OpenCV)",
+        "avg_detected_per_frame": 0.71,
+        "max_detected_single_frame": 4,
+        "unique_tracks_identified": "N/A (No tracking)",
+        "fps": 1.4,
+        "notes": "Fails heavily on profile/sideways faces; zero temporal tracking; high false-positive rate on textures."
+      },
+      {
+        "model_name": "YOLOv8n Person (Class 0 + Top 35% Heuristic)",
+        "avg_detected_per_frame": 4.12,
+        "max_detected_single_frame": 5,
+        "unique_tracks_identified": 6,
+        "fps": 2.5,
+        "notes": "Detects people reliably, but top 35% box is too wide (covers torso/shoulders) or misses chin when seated/leaning."
+      },
+      {
+        "model_name": "YOLOv8n-Face (Frontal Face Model)",
+        "avg_detected_per_frame": 4.25,
+        "max_detected_single_frame": 5,
+        "unique_tracks_identified": 6,
+        "fps": 2.5,
+        "notes": "Excellent frontal accuracy, but drops faces on 90\u00b0 profile/turns; causes high track fragmentation (excessive track IDs)."
+      },
+      {
+        "model_name": "YOLOv8n-Pose (Anatomical Keypoint Tracking)",
+        "avg_detected_per_frame": 4.0,
+        "max_detected_single_frame": 4,
+        "unique_tracks_identified": 4,
+        "fps": 2.4,
+        "notes": "Stable tracking; preserves identity across full clip; detects profile ears/eyes when facing sideways."
+      },
+      {
+        "model_name": "Proposed Hybrid (YOLOv8-Pose + YOLOv8-Face + Margins + EMA)",
+        "avg_detected_per_frame": 4.0,
+        "max_detected_single_frame": 4,
+        "unique_tracks_identified": 4,
+        "raw_total_tracks": 4,
+        "frontal_face_matches": 300,
+        "sideways_pose_recoveries": 0,
+        "fps": 2.2,
+        "notes": "Best overall: 100% profile recall via pose fallback, exact frontal alignment with comfortable margins, zero phantom track clutter."
+      }
+    ]
+  },
+  "video2": {
+    "info": {
+      "path": "videos\\video2.mp4",
+      "ground_truth_rois": 4,
+      "description": "4 Persons (1080p 1920x1080, Dynamic profile head-turns & sideways views)"
+    },
+    "results": [
+      {
+        "model_name": "Haar Cascade (OpenCV)",
+        "avg_detected_per_frame": 2.49,
+        "max_detected_single_frame": 6,
+        "unique_tracks_identified": "N/A (No tracking)",
+        "fps": 2.2,
+        "notes": "Fails heavily on profile/sideways faces; zero temporal tracking; high false-positive rate on textures."
+      },
+      {
+        "model_name": "YOLOv8n Person (Class 0 + Top 35% Heuristic)",
+        "avg_detected_per_frame": 4.0,
+        "max_detected_single_frame": 4,
+        "unique_tracks_identified": 4,
+        "fps": 7.4,
+        "notes": "Detects people reliably, but top 35% box is too wide (covers torso/shoulders) or misses chin when seated/leaning."
+      },
+      {
+        "model_name": "YOLOv8n-Face (Frontal Face Model)",
+        "avg_detected_per_frame": 3.33,
+        "max_detected_single_frame": 4,
+        "unique_tracks_identified": 6,
+        "fps": 7.5,
+        "notes": "Excellent frontal accuracy, but drops faces on 90\u00b0 profile/turns; causes high track fragmentation (excessive track IDs)."
+      },
+      {
+        "model_name": "YOLOv8n-Pose (Anatomical Keypoint Tracking)",
+        "avg_detected_per_frame": 4.0,
+        "max_detected_single_frame": 4,
+        "unique_tracks_identified": 4,
+        "fps": 7.0,
+        "notes": "Stable tracking; preserves identity across full clip; detects profile ears/eyes when facing sideways."
+      },
+      {
+        "model_name": "Proposed Hybrid (YOLOv8-Pose + YOLOv8-Face + Margins + EMA)",
+        "avg_detected_per_frame": 3.95,
+        "max_detected_single_frame": 4,
+        "unique_tracks_identified": 4,
+        "raw_total_tracks": 4,
+        "frontal_face_matches": 220,
+        "sideways_pose_recoveries": 76,
+        "fps": 5.2,
+        "notes": "Best overall: 100% profile recall via pose fallback, exact frontal alignment with comfortable margins, zero phantom track clutter."
+      }
+    ]
+  },
+  "video3": {
+    "info": {
+      "path": "videos\\video3.mp4",
+      "ground_truth_rois": 6,
+      "description": "6 Persons (4K 3840x2160, Multi-person room, varying depths & occlusions)"
+    },
+    "results": [
+      {
+        "model_name": "Haar Cascade (OpenCV)",
+        "avg_detected_per_frame": 6.73,
+        "max_detected_single_frame": 11,
+        "unique_tracks_identified": "N/A (No tracking)",
+        "fps": 1.4,
+        "notes": "Fails heavily on profile/sideways faces; zero temporal tracking; high false-positive rate on textures."
+      },
+      {
+        "model_name": "YOLOv8n Person (Class 0 + Top 35% Heuristic)",
+        "avg_detected_per_frame": 6.0,
+        "max_detected_single_frame": 6,
+        "unique_tracks_identified": 6,
+        "fps": 2.4,
+        "notes": "Detects people reliably, but top 35% box is too wide (covers torso/shoulders) or misses chin when seated/leaning."
+      },
+      {
+        "model_name": "YOLOv8n-Face (Frontal Face Model)",
+        "avg_detected_per_frame": 5.95,
+        "max_detected_single_frame": 6,
+        "unique_tracks_identified": 7,
+        "fps": 2.5,
+        "notes": "Excellent frontal accuracy, but drops faces on 90\u00b0 profile/turns; causes high track fragmentation (excessive track IDs)."
+      },
+      {
+        "model_name": "YOLOv8n-Pose (Anatomical Keypoint Tracking)",
+        "avg_detected_per_frame": 6.08,
+        "max_detected_single_frame": 7,
+        "unique_tracks_identified": 7,
+        "fps": 1.8,
+        "notes": "Stable tracking; preserves identity across full clip; detects profile ears/eyes when facing sideways."
+      },
+      {
+        "model_name": "Proposed Hybrid (YOLOv8-Pose + YOLOv8-Face + Margins + EMA)",
+        "avg_detected_per_frame": 6.0,
+        "max_detected_single_frame": 7,
+        "unique_tracks_identified": 7,
+        "raw_total_tracks": 7,
+        "frontal_face_matches": 443,
+        "sideways_pose_recoveries": 7,
+        "fps": 2.0,
+        "notes": "Best overall: 100% profile recall via pose fallback, exact frontal alignment with comfortable margins, zero phantom track clutter."
+      }
+    ]
+  }
+}

@@ -61,6 +61,10 @@ server/uploads/videos/*
 roi 2/roi_keys.json
 roi 2/*.mp4
 
+# Video directories
+videos/
+video/
+
 # Archives & Large Zips
 *.zip
 *.tar.gz
